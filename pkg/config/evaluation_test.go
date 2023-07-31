@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -33,7 +32,7 @@ func evaluateConditionsOpenFileMock(name string, _ map[string]string) (io.ReadCl
 	var fileContent io.ReadCloser
 	switch name {
 	case "package.json":
-		fileContent = ioutil.NopCloser(strings.NewReader(`
+		fileContent = io.NopCloser(strings.NewReader(`
 		{
 			"scripts": {
 				"npmScript": "echo test",
@@ -42,9 +41,9 @@ func evaluateConditionsOpenFileMock(name string, _ map[string]string) (io.ReadCl
 		}
 		`))
 	case "_package.json":
-		fileContent = ioutil.NopCloser(strings.NewReader("wrong json format"))
+		fileContent = io.NopCloser(strings.NewReader("wrong json format"))
 	case "test/package.json":
-		fileContent = ioutil.NopCloser(strings.NewReader("{}"))
+		fileContent = io.NopCloser(strings.NewReader("{}"))
 	}
 	return fileContent, nil
 }
@@ -424,8 +423,8 @@ func TestEvaluateV1(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to create sub directories")
 	}
-	ioutil.WriteFile(filepath.Join(cpeDir, "myCpeTrueFile"), []byte("myTrueValue"), 0700)
-	ioutil.WriteFile(filepath.Join(cpeDir, "custom", "myCpeTrueFile"), []byte("myTrueValue"), 0700)
+	os.WriteFile(filepath.Join(cpeDir, "myCpeTrueFile"), []byte("myTrueValue"), 0700)
+	os.WriteFile(filepath.Join(cpeDir, "custom", "myCpeTrueFile"), []byte("myTrueValue"), 0700)
 
 	for _, test := range tt {
 		t.Run(test.name, func(t *testing.T) {
@@ -466,7 +465,7 @@ func TestEvaluateConditions(t *testing.T) {
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -500,7 +499,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -524,7 +523,7 @@ stages:
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -566,7 +565,7 @@ stages:
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -601,7 +600,7 @@ stages:
 				Stages: map[string]map[string]interface{}{},
 				Steps:  map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -623,7 +622,7 @@ stages:
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -657,7 +656,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -681,7 +680,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -702,7 +701,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -729,7 +728,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -759,7 +758,7 @@ stages:
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -790,7 +789,7 @@ stages:
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -811,7 +810,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -836,7 +835,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -864,7 +863,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -885,7 +884,7 @@ stages:
 				Stages:  map[string]map[string]interface{}{},
 				Steps:   map[string]map[string]interface{}{},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
@@ -909,7 +908,7 @@ stages:
 					},
 				},
 			},
-			stageConfig: ioutil.NopCloser(strings.NewReader(`
+			stageConfig: io.NopCloser(strings.NewReader(`
 stages:
   testStage1:
     stepConditions:
