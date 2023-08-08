@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/SAP/jenkins-library/pkg/log"
+	"github.com/SAP/jenkins-library/pkg/orchestrator"
 	"github.com/SAP/jenkins-library/pkg/piperenv"
 	"github.com/spf13/cobra"
 	"io/ioutil"
@@ -51,7 +52,7 @@ func runWritePipelineEnv() error {
 	}
 
 	// try to decrypt
-	if secret, ok := os.LookupEnv("PIPER_pipelineEnv_SECRET"); ok && secret != "" {
+	if secret, ok := os.LookupEnv("PIPER_pipelineEnv_SECRET"); ok && secret != "" && orchestrator.DetectOrchestrator() != orchestrator.Jenkins {
 		log.Entry().Debug("found PIPER_pipelineEnv_SECRET, trying to decrypt CPE")
 		var err error
 		inBytes, err = decrypt([]byte(secret), inBytes)
