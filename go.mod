@@ -62,7 +62,7 @@ require (
 	google.golang.org/api v0.88.0
 	gopkg.in/ini.v1 v1.66.6
 	gopkg.in/yaml.v2 v2.4.0
-	helm.sh/helm/v3 v3.10.3
+	helm.sh/helm/v3 v3.11.1
 	mvdan.cc/xurls/v2 v2.4.0
 	sigs.k8s.io/json v0.0.0-20220713155537-f223a00ba0e2
 )
