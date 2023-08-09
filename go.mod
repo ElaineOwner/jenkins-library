@@ -35,7 +35,7 @@ require (
 	github.com/google/go-github/v45 v45.2.0
 	github.com/google/uuid v1.3.0
 	github.com/hashicorp/go-retryablehttp v0.7.1
-	github.com/hashicorp/vault v1.9.9
+	github.com/hashicorp/vault v1.13.5
 	github.com/hashicorp/vault/api v1.3.1
 	github.com/iancoleman/orderedmap v0.2.0
 	github.com/imdario/mergo v0.3.12
