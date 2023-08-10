@@ -196,6 +196,15 @@ func runWhitesourceScan(ctx context.Context, config *ScanOptions, scan *ws.Scan,
 			FilePath:                  config.ProjectName,
 			ImageFormat:               "legacy", // keep the image format legacy or whitesource is not able to read layers
 		}
+		log.Entry().Info("-----------------download Docker image info-------------------------")
+	        log.Entry().Infof("config.version: '%s'", config.Version)
+		log.Entry().Infof("config.ScanImage: '%s'", config.ScanImage)
+		log.Entry().Infof("ScanImageRegistryURL: '%s'", config.ScanImageRegistryURL)
+		log.Entry().Infof("ContainerRegistryUser: '%s'", config.ContainerRegistryUser)
+		log.Entry().Infof("ContainerRegistryPassword: '%s'", config.ContainerRegistryPassword)
+		log.Entry().Infof("DockerConfigJSON: '%s'", config.DockerConfigJSON)
+		log.Entry().Infof("ProjectName: '%s'", config.ProjectName)
+		
 		dClientOptions := piperDocker.ClientOptions{ImageName: saveImageOptions.ContainerImage, RegistryURL: saveImageOptions.ContainerRegistryURL, LocalPath: "", ImageFormat: "legacy"}
 		dClient := &piperDocker.Client{}
 		dClient.SetOptions(dClientOptions)
