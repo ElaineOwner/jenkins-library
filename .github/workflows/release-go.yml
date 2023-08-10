@@ -5,7 +5,8 @@ on:
     types: perform-release
   schedule:
     - cron: '0 9 * * 1'
-
+  workflow_dispatch:                # trigger manually
+  
 jobs:
   build:
     name: Publish
